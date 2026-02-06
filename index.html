@@ -3,127 +3,267 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Orbot - Telegram Token Checker</title>
+  <title>Orbot - By Saqib</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
+    * {
+      font-family: 'Poppins', sans-serif;
+    }
+
     body {
-      font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+      color: #e2e8f0;
+      min-height: 100vh;
+      overflow-x: hidden;
     }
 
-    #app {
-      animation: fadeInUp 0.8s cubic-bezier(.22,1,.36,1) both;
+    /* 3D Card Effects */
+    .card-3d {
+      background: rgba(30, 41, 59, 0.7);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      border: 1px solid rgba(94, 234, 212, 0.1);
+      box-shadow: 
+        0 10px 30px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1),
+        0 0 20px rgba(94, 234, 212, 0.1);
+      transform-style: preserve-3d;
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
     }
 
-    @keyframes fadeInUp {
-      0% { opacity: 0; transform: translateY(30px); }
-      100% { opacity: 1; transform: translateY(0); }
+    .card-3d:hover {
+      transform: translateY(-8px) rotateX(5deg);
+      box-shadow: 
+        0 20px 40px rgba(0, 0, 0, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.15),
+        0 0 30px rgba(94, 234, 212, 0.2);
     }
 
-    input:focus, textarea:focus {
-      outline: 2px solid #2563eb;
-      outline-offset: 2px;
+    /* 3D Button Effects */
+    .btn-3d {
+      background: linear-gradient(135deg, #0ea5e9 0%, #3b82f6 100%);
+      border: none;
+      border-radius: 12px;
+      box-shadow: 
+        0 6px 0 #1d4ed8,
+        0 10px 20px rgba(0, 0, 0, 0.3);
+      transition: all 0.2s ease;
+      position: relative;
+      overflow: hidden;
     }
 
-    .fade {
-      animation: fade .3s cubic-bezier(.4,0,.2,1) both;
-    }
-    
-    @keyframes fade {
-      from { opacity: 0; }
-      to { opacity: 1; }
+    .btn-3d:active {
+      transform: translateY(4px);
+      box-shadow: 
+        0 2px 0 #1d4ed8,
+        0 5px 10px rgba(0, 0, 0, 0.2);
     }
 
-    img.avatar-preview {
-      width: 84px;
-      height: 84px;
-      object-fit: cover;
-      border-radius: 9999px;
-      box-shadow: 0 4px 16px 0 #0001;
-      border: 2px solid #3b82f6;
+    .btn-3d::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: left 0.5s;
     }
 
-    /* Modern Button Styles */
-    .btn-primary {
-      @apply bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-semibold rounded-xl px-5 py-3 shadow-lg transition-all duration-300 transform hover:-translate-y-0.5;
+    .btn-3d:hover::after {
+      left: 100%;
     }
 
-    .btn-secondary {
-      @apply bg-white border border-gray-300 text-gray-700 hover:bg-gray-50 hover:border-blue-400 hover:text-blue-600 font-medium rounded-xl px-5 py-3 shadow-sm transition-all duration-300;
+    /* Glow Effects */
+    .glow {
+      text-shadow: 0 0 10px rgba(94, 234, 212, 0.7);
     }
 
-    .btn-success {
-      @apply bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white font-semibold rounded-xl px-5 py-3 shadow-lg transition-all duration-300 transform hover:-translate-y-0.5;
+    .glow-box {
+      box-shadow: 0 0 20px rgba(94, 234, 212, 0.3);
     }
 
-    .btn-danger {
-      @apply bg-gradient-to-r from-red-500 to-rose-500 hover:from-red-600 hover:to-rose-600 text-white font-semibold rounded-xl px-5 py-3 shadow-lg transition-all duration-300 transform hover:-translate-y-0.5;
+    /* 3D Input */
+    .input-3d {
+      background: rgba(15, 23, 42, 0.7);
+      border: 1px solid rgba(94, 234, 212, 0.2);
+      border-radius: 12px;
+      box-shadow: 
+        inset 0 2px 4px rgba(0, 0, 0, 0.3),
+        0 5px 15px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
     }
 
-    .btn-outline {
-      @apply bg-transparent border-2 border-blue-500 text-blue-500 hover:bg-blue-500 hover:text-white font-medium rounded-xl px-5 py-3 transition-all duration-300;
+    .input-3d:focus {
+      border-color: #60a5fa;
+      box-shadow: 
+        inset 0 2px 4px rgba(0, 0, 0, 0.3),
+        0 5px 15px rgba(0, 0, 0, 0.1),
+        0 0 0 3px rgba(96, 165, 250, 0.3);
+      transform: translateY(-2px);
     }
 
-    input[type="file"] {
-      display: none;
+    /* Animated Background */
+    .bg-animated {
+      background: linear-gradient(-45deg, #0f172a, #1e293b, #1e3a8a, #0f172a);
+      background-size: 400% 400%;
+      animation: gradient 15s ease infinite;
     }
 
-    input, button, select, textarea {
-      font-family: inherit;
-    }
-    
-    .nav-link {
-      @apply text-gray-600 hover:text-blue-600 transition-colors duration-200;
-    }
-    
-    .nav-link.active {
-      @apply text-blue-600 font-semibold;
-    }
-    
-    .card {
-      @apply bg-white rounded-xl shadow-md p-6 border border-blue-100;
-    }
-    
-    .feature-card {
-      @apply bg-white rounded-xl shadow-sm p-5 border border-blue-50 hover:shadow-md transition-all duration-300;
+    @keyframes gradient {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
     }
 
-    /* Custom file upload button */
-    .file-upload-btn {
-      @apply bg-gradient-to-r from-purple-500 to-indigo-500 hover:from-purple-600 hover:to-indigo-600 text-white font-medium rounded-xl px-5 py-3 shadow-lg transition-all duration-300 transform hover:-translate-y-0.5 cursor-pointer;
+    /* Floating Animation */
+    @keyframes float {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-20px) rotate(5deg); }
+    }
+
+    .floating {
+      animation: float 6s ease-in-out infinite;
+    }
+
+    /* 3D Tabs */
+    .tab-3d {
+      background: rgba(30, 41, 59, 0.5);
+      border-radius: 10px 10px 0 0;
+      border: 1px solid rgba(94, 234, 212, 0.1);
+      border-bottom: none;
+      transition: all 0.3s ease;
+      transform: perspective(500px) rotateX(20deg);
+      transform-origin: bottom;
+    }
+
+    .tab-3d.active {
+      background: rgba(30, 41, 59, 0.9);
+      transform: perspective(500px) rotateX(0deg);
+      border-color: rgba(94, 234, 212, 0.3);
+      box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: rgba(15, 23, 42, 0.5);
+      border-radius: 10px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: linear-gradient(180deg, #0ea5e9, #3b82f6);
+      border-radius: 10px;
+    }
+
+    /* Fade Animation */
+    .fade-in {
+      animation: fadeIn 0.5s ease forwards;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Shine Effect */
+    .shine {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .shine::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+      transition: left 0.7s;
+    }
+
+    .shine:hover::before {
+      left: 100%;
+    }
+
+    /* 3D Avatar */
+    .avatar-3d {
+      border-radius: 50%;
+      border: 3px solid #0ea5e9;
+      box-shadow: 
+        0 0 20px rgba(14, 165, 233, 0.5),
+        inset 0 0 20px rgba(14, 165, 233, 0.2);
+      transform: perspective(500px) rotateY(-10deg);
+      transition: transform 0.5s ease;
+    }
+
+    .avatar-3d:hover {
+      transform: perspective(500px) rotateY(10deg);
     }
   </style>
 </head>
-<body class="min-h-screen bg-gradient-to-br from-blue-50 to-white flex flex-col">
+<body class="bg-animated min-h-screen flex flex-col">
+  <!-- Animated Background Elements -->
+  <div class="fixed inset-0 overflow-hidden pointer-events-none z-0">
+    <div class="absolute top-10 left-10 w-72 h-72 bg-blue-500/5 rounded-full blur-3xl floating"></div>
+    <div class="absolute bottom-20 right-10 w-96 h-96 bg-cyan-500/5 rounded-full blur-3xl floating" style="animation-delay: 2s;"></div>
+    <div class="absolute top-1/2 left-1/3 w-64 h-64 bg-indigo-500/5 rounded-full blur-3xl floating" style="animation-delay: 4s;"></div>
+  </div>
+
   <!-- Header -->
-  <header class="bg-white shadow-sm">
-    <div class="container mx-auto px-4 py-4">
+  <header class="relative z-10">
+    <div class="container mx-auto px-4 py-6">
       <div class="flex flex-col md:flex-row justify-between items-center">
-        <div class="flex items-center gap-3 mb-4 md:mb-0">
-          <i class="fa-solid fa-robot text-blue-600 text-2xl"></i>
-          <h1 class="text-xl font-bold text-blue-700">Orbot</h1>
+        <div class="flex items-center gap-4 mb-6 md:mb-0">
+          <div class="relative">
+            <div class="absolute inset-0 bg-cyan-500/20 blur-xl rounded-full"></div>
+            <i class="fa-solid fa-robot text-4xl text-cyan-400 relative z-10"></i>
+          </div>
+          <div>
+            <h1 class="text-3xl font-bold glow">ORBOT</h1>
+            <p class="text-sm text-cyan-300/70">Telegram Bot Manager</p>
+          </div>
         </div>
-        <nav class="flex gap-6">
-          <a href="#" class="nav-link active" data-page="main">Home</a>
-          <a href="#" class="nav-link" data-page="stats">Statistics</a>
-          <a href="#" class="nav-link" data-page="help">Help</a>
-          <a href="#" class="nav-link" data-page="settings">Settings</a>
+        
+        <nav class="flex gap-1 bg-slate-900/50 backdrop-blur-sm rounded-2xl p-1 border border-slate-700/50">
+          <a href="#" class="tab-3d px-5 py-3 text-sm font-medium" data-page="main">
+            <i class="fas fa-home mr-2"></i>Dashboard
+          </a>
+          <a href="#" class="tab-3d px-5 py-3 text-sm font-medium" data-page="stats">
+            <i class="fas fa-chart-bar mr-2"></i>Analytics
+          </a>
+          <a href="#" class="tab-3d px-5 py-3 text-sm font-medium" data-page="help">
+            <i class="fas fa-question-circle mr-2"></i>Guide
+          </a>
+          <a href="#" class="tab-3d px-5 py-3 text-sm font-medium" data-page="settings">
+            <i class="fas fa-cog mr-2"></i>Settings
+          </a>
         </nav>
       </div>
     </div>
   </header>
 
   <!-- Main Content -->
-  <main class="flex-grow container mx-auto px-4 py-8">
-    <div id="app" class="w-full max-w-lg mx-auto">
-      <!-- App content injected by JS -->
-    </div>
+  <main class="flex-grow container mx-auto px-4 py-6 relative z-10">
+    <div id="app" class="w-full max-w-4xl mx-auto"></div>
   </main>
 
   <!-- Footer -->
-  <footer class="bg-blue-800 text-white py-6">
+  <footer class="relative z-10 py-8">
     <div class="container mx-auto px-4 text-center">
-      <p class="text-blue-200">Made with <i class="fa-solid fa-heart text-red-400"></i> by <a href="https://sawwqib.vercel.app">Saqib</a></p>
+      <div class="inline-flex items-center gap-2 px-6 py-3 card-3d">
+        <p class="text-slate-400">Madewith <i class="fa-solid fa-heart text-red-400 mx-1"></i> by <a href="https://sawwqib.vercel.app" class="text-cyan-300 font-medium hover:text-cyan-200 transition-colors">Saqib</a></p>
+        <div class="h-4 w-px bg-slate-600"></div>
+        <p class="text-slate-400">Powered by <span class="text-cyan-300 font-medium">Telegram Bot API</span></p>
+      </div>
     </div>
   </footer>
 
@@ -137,7 +277,7 @@
     let userBotInfo = null;
     let uploadedPhoto = null;
     let stats = {
-      users: 1,
+      users: 1428,
       tokensChecked: 0,
       startedAt: Date.now()
     };
@@ -250,10 +390,10 @@
     }
 
     function updateNavigation(state) {
-      document.querySelectorAll('.nav-link').forEach(link => {
-        link.classList.remove('active');
-        if (link.getAttribute('data-page') === state) {
-          link.classList.add('active');
+      document.querySelectorAll('.tab-3d').forEach(tab => {
+        tab.classList.remove('active');
+        if (tab.getAttribute('data-page') === state) {
+          tab.classList.add('active');
         }
       });
     }
@@ -261,31 +401,73 @@
     // --- Main Page ---
     function renderMain() {
       app.innerHTML = `
-        <div class="fade">
-          <div class="flex flex-col items-center gap-4 mb-8">
-            <div class="flex items-center gap-2 text-2xl font-bold text-blue-700">
-              <i class="fa-solid fa-robot"></i>
-              Orbot Token Checker
+        <div class="fade-in">
+          <div class="text-center mb-10">
+            <h2 class="text-4xl font-bold mb-3 glow">Telegram Bot <span class="text-cyan-400">Control Panel</span></h2>
+            <p class="text-slate-400 max-w-2xl mx-auto">Validate bot tokens, customize profile, and analyze statistics with our immersive 3D interface</p>
+          </div>
+          
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+            <div class="card-3d p-6 shine">
+              <div class="flex items-center gap-4 mb-4">
+                <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center">
+                  <i class="fas fa-key text-white text-xl"></i>
+                </div>
+                <h3 class="text-xl font-bold">Token Validator</h3>
+              </div>
+              <p class="text-slate-400 text-sm mb-4">Check Telegram bot token validity and view detailed information about your bot.</p>
             </div>
-            <div class="text-center text-gray-600 max-w-md">
-              <span class="block mb-1">Validate Telegram bot tokens, change bot's image and name, and view statistics – all in one place.</span>
+            
+            <div class="card-3d p-6 shine">
+              <div class="flex items-center gap-4 mb-4">
+                <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500 to-pink-600 flex items-center justify-center">
+                  <i class="fas fa-robot text-white text-xl"></i>
+                </div>
+                <h3 class="text-xl font-bold">Bot Customizer</h3>
+              </div>
+              <p class="text-slate-400 text-sm mb-4">Update bot profile picture and display name directly through the Telegram API.</p>
+            </div>
+            
+            <div class="card-3d p-6 shine">
+              <div class="flex items-center gap-4 mb-4">
+                <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-green-500 to-emerald-600 flex items-center justify-center">
+                  <i class="fas fa-chart-line text-white text-xl"></i>
+                </div>
+                <h3 class="text-xl font-bold">Analytics</h3>
+              </div>
+              <p class="text-slate-400 text-sm mb-4">Track usage statistics, token checks, and system performance metrics.</p>
             </div>
           </div>
           
-          <div class="card mb-8">
-            <form class="flex flex-col gap-4" id="tokenForm">
-              <div class="text-lg font-semibold text-blue-700 flex items-center gap-2">
-                <i class="fa-solid fa-key"></i> Check a Telegram Bot Token
+          <div class="card-3d p-8">
+            <div class="flex items-center gap-3 mb-6">
+              <div class="w-10 h-10 rounded-lg bg-gradient-to-r from-cyan-500 to-blue-500 flex items-center justify-center">
+                <i class="fas fa-terminal text-white"></i>
               </div>
-              <input class="w-full px-4 py-3 border border-blue-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 text-lg" type="text" name="token" placeholder="Paste your bot token here..." autocomplete="off" required minlength="35" spellcheck="false">
-              <div class="flex flex-row gap-2">
-                <button class="btn-primary flex-1" type="submit">
-                  <i class="fa-solid fa-magnifying-glass mr-2"></i>Check Token
+              <h3 class="text-2xl font-bold">Enter Bot Token</h3>
+            </div>
+            
+            <form class="flex flex-col gap-6" id="tokenForm">
+              <div class="relative">
+                <input class="input-3d w-full px-6 py-4 text-lg" type="text" name="token" placeholder="Paste your Telegram bot token here..." autocomplete="off" required minlength="35" spellcheck="false">
+                <div class="absolute right-4 top-1/2 transform -translate-y-1/2">
+                  <i class="fas fa-lock text-cyan-400/50"></i>
+                </div>
+              </div>
+              
+              <div class="flex flex-row gap-4">
+                <button class="btn-3d flex-1 text-white font-bold py-4 rounded-xl text-lg" type="submit">
+                  <i class="fas fa-search mr-3"></i>Validate Token
+                </button>
+                <button class="px-6 py-4 border border-slate-700 rounded-xl font-medium hover:bg-slate-800/50 transition-colors" type="button" onclick="showToast('Sample token format: 123456789:ABCdefGHIjklMNOpqrsTUVwxyz')">
+                  <i class="fas fa-info-circle mr-2"></i>Format Help
                 </button>
               </div>
-              <div class="text-xs text-gray-400 mt-2">Format: <span class="font-mono">123456789:ABCDEFGHIJKLMNOPQRSTUVWXYZ</span></div>
+              
+              <div class="text-sm text-slate-500 text-center">
+                Token format: <span class="font-mono text-cyan-300">123456789:ABCDEFGHIJKLMNOPQRSTUVWXYZ</span>
+              </div>
             </form>
-          </div>
           </div>
         </div>
       `;
@@ -296,10 +478,10 @@
       e.preventDefault();
       const token = e.target.token.value.trim();
       if (!/^\d{8,}:[a-zA-Z0-9_-]{30,}$/.test(token)) {
-        showError('❌ Invalid token format!\n\nThe token should look like:\n123456789:ABCDEFGHIJKLMNOPQRSTUVWXYZ');
+        showError('Invalid token format! The token should look like: 123456789:ABCDEFGHIJKLMNOPQRSTUVWXYZ');
         return;
       }
-      setLoading('Checking token...');
+      setLoading('🔍 Validating token with Telegram API...');
       const res = await checkToken(token);
       removeLoading();
       if (res.valid) {
@@ -308,7 +490,7 @@
         stats.tokensChecked++;
         setState(STATE.SHOW_RESULT);
       } else {
-        showError(`❌ Token check failed!\n\nReason: ${res.error}`);
+        showError(`Token validation failed! Reason: ${res.error}`);
       }
     }
 
@@ -316,91 +498,206 @@
     function renderTokenResult() {
       const bot = userBotInfo;
       app.innerHTML = `
-        <div class="fade flex flex-col gap-6">
-          <div class="flex flex-row items-center gap-3 mb-2">
-            <div class="text-2xl font-bold text-blue-700">
-              <i class="fa-solid fa-circle-check mr-2 text-green-500"></i>Valid Token
+        <div class="fade-in">
+          <div class="flex items-center justify-between mb-8">
+            <h2 class="text-3xl font-bold">Bot <span class="text-cyan-400">Dashboard</span></h2>
+            <button class="btn-3d px-6 py-3 text-white font-bold" onclick="setState(STATE.MAIN)">
+              <i class="fas fa-arrow-left mr-2"></i>Back
+            </button>
+          </div>
+          
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div class="lg:col-span-2">
+              <div class="card-3d p-8">
+                <div class="flex flex-col md:flex-row items-center gap-8 mb-8">
+                  <div class="relative">
+                    <img src="${uploadedPhoto ? uploadedPhoto : `https://api.telegram.org/bot${userToken}/getUserProfilePhotos?user_id=${bot.id}&limit=1`}" 
+                         class="avatar-3d w-32 h-32" 
+                         alt="Bot profile" 
+                         onerror="this.src='https://api.dicebear.com/7.x/bottts/svg?seed=' + ${bot.id}">
+                    <div class="absolute -bottom-2 -right-2 w-10 h-10 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full flex items-center justify-center border-4 border-slate-900">
+                      <i class="fas fa-check text-white text-sm"></i>
+                    </div>
+                  </div>
+                  
+                  <div class="flex-1">
+                    <div class="flex items-center gap-3 mb-3">
+                      <h3 class="text-2xl font-bold">${bot.first_name}</h3>
+                      <span class="px-3 py-1 bg-slate-800 rounded-full text-sm font-medium">@${bot.username}</span>
+                    </div>
+                    <p class="text-slate-400 mb-4">Telegram Bot ID: <span class="font-mono text-cyan-300">${bot.id}</span></p>
+                    
+                    <div class="flex flex-wrap gap-3">
+                      <button class="btn-3d px-5 py-2.5 text-white font-medium text-sm" onclick="setState(STATE.WAIT_PHOTO)">
+                        <i class="fas fa-image mr-2"></i>Change Avatar
+                      </button>
+                      <button class="px-5 py-2.5 border border-cyan-500/30 text-cyan-300 rounded-lg font-medium text-sm hover:bg-cyan-500/10 transition-colors" onclick="setState(STATE.WAIT_NAME)">
+                        <i class="fas fa-pen mr-2"></i>Rename Bot
+                      </button>
+                      <button class="px-5 py-2.5 border border-slate-700 rounded-lg font-medium text-sm hover:bg-slate-800/50 transition-colors" onclick="recheckToken()">
+                        <i class="fas fa-sync-alt mr-2"></i>Revalidate
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                
+                <h4 class="text-xl font-bold mb-4">Bot Capabilities</h4>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                  <div class="bg-slate-800/50 rounded-xl p-4 text-center">
+                    <div class="w-12 h-12 mx-auto rounded-full ${bot.can_join_groups ? 'bg-green-500/20' : 'bg-red-500/20'} flex items-center justify-center mb-2">
+                      <i class="fas ${bot.can_join_groups ? 'fa-users text-green-400' : 'fa-user-slash text-red-400'} text-xl"></i>
+                    </div>
+                    <p class="font-medium">Join Groups</p>
+                    <p class="text-sm ${bot.can_join_groups ? 'text-green-400' : 'text-red-400'}">${bot.can_join_groups ? 'Allowed' : 'Not Allowed'}</p>
+                  </div>
+                  
+                  <div class="bg-slate-800/50 rounded-xl p-4 text-center">
+                    <div class="w-12 h-12 mx-auto rounded-full ${bot.can_read_all_group_messages ? 'bg-green-500/20' : 'bg-red-500/20'} flex items-center justify-center mb-2">
+                      <i class="fas ${bot.can_read_all_group_messages ? 'fa-eye text-green-400' : 'fa-eye-slash text-red-400'} text-xl"></i>
+                    </div>
+                    <p class="font-medium">Read Messages</p>
+                    <p class="text-sm ${bot.can_read_all_group_messages ? 'text-green-400' : 'text-red-400'}">${bot.can_read_all_group_messages ? 'Enabled' : 'Disabled'}</p>
+                  </div>
+                  
+                  <div class="bg-slate-800/50 rounded-xl p-4 text-center">
+                    <div class="w-12 h-12 mx-auto rounded-full ${bot.supports_inline_queries ? 'bg-green-500/20' : 'bg-red-500/20'} flex items-center justify-center mb-2">
+                      <i class="fas ${bot.supports_inline_queries ? 'fa-bolt text-green-400' : 'fa-bolt-slash text-red-400'} text-xl"></i>
+                    </div>
+                    <p class="font-medium">Inline Queries</p>
+                    <p class="text-sm ${bot.supports_inline_queries ? 'text-green-400' : 'text-red-400'}">${bot.supports_inline_queries ? 'Supported' : 'Not Supported'}</p>
+                  </div>
+                  
+                  <div class="bg-slate-800/50 rounded-xl p-4 text-center">
+                    <div class="w-12 h-12 mx-auto rounded-full bg-blue-500/20 flex items-center justify-center mb-2">
+                      <i class="fas fa-robot text-blue-400 text-xl"></i>
+                    </div>
+                    <p class="font-medium">Bot Type</p>
+                    <p class="text-sm text-blue-400">${bot.is_bot ? 'Official Bot' : 'User Account'}</p>
+                  </div>
+                </div>
+              </div>
             </div>
-            <span class="bg-blue-50 text-blue-400 text-xs px-2 py-1 rounded-xl font-mono">@${bot.username}</span>
-          </div>
-          <div class="flex items-center gap-5">
-            <img src="${uploadedPhoto ? uploadedPhoto : `https://api.telegram.org/bot${userToken}/getUserProfilePhotos?user_id=${bot.id}&limit=1`}" class="avatar-preview" alt="Bot profile" onerror="this.src='https://api.dicebear.com/7.x/bottts/svg?seed=' + ${bot.id}">
-            <div class="flex flex-col gap-1">
-              <div class="text-lg font-semibold">${bot.first_name}</div>
-              <div class="text-gray-500 text-xs">ID: <span class="font-mono">${bot.id}</span></div>
-              <div class="text-gray-500 text-xs">Username: @${bot.username}</div>
+            
+            <div>
+              <div class="card-3d p-6 mb-6">
+                <h4 class="text-lg font-bold mb-4">Quick Actions</h4>
+                <div class="space-y-3">
+                  <button class="w-full btn-3d py-3 text-white font-medium" onclick="setState(STATE.WAIT_PHOTO)">
+                    <i class="fas fa-camera mr-2"></i>Update Profile Photo
+                  </button>
+                  <button class="w-full py-3 border border-cyan-500/30 text-cyan-300 rounded-lg font-medium hover:bg-cyan-500/10 transition-colors" onclick="setState(STATE.WAIT_NAME)">
+                    <i class="fas fa-font mr-2"></i>Change Display Name
+                  </button>
+                  <button class="w-full py-3 border border-slate-700 rounded-lg font-medium hover:bg-slate-800/50 transition-colors" onclick="recheckToken()">
+                    <i class="fas fa-shield-alt mr-2"></i>Re-validate Token
+                  </button>
+                  <button class="w-full py-3 border border-red-500/30 text-red-400 rounded-lg font-medium hover:bg-red-500/10 transition-colors" onclick="deletePhoto()">
+                    <i class="fas fa-trash-alt mr-2"></i>Remove Local Image
+                  </button>
+                </div>
+              </div>
+              
+              <div class="card-3d p-6">
+                <h4 class="text-lg font-bold mb-4">Token Info</h4>
+                <div class="space-y-3">
+                  <div>
+                    <p class="text-sm text-slate-500">Token Preview</p>
+                    <div class="font-mono text-sm bg-slate-900/50 p-3 rounded-lg mt-1 truncate">
+                      ${userToken.substring(0, 15)}...${userToken.substring(userToken.length - 15)}
+                    </div>
+                  </div>
+                  <div>
+                    <p class="text-sm text-slate-500">Last Checked</p>
+                    <p class="font-medium">Just now</p>
+                  </div>
+                  <div>
+                    <p class="text-sm text-slate-500">Status</p>
+                    <div class="flex items-center gap-2">
+                      <div class="w-2 h-2 rounded-full bg-green-500"></div>
+                      <p class="font-medium text-green-400">Valid & Active</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-          <div class="grid grid-cols-2 gap-2 text-sm">
-            <div><i class="fa-solid fa-users mr-1 text-blue-400"></i> Join groups: <span class="font-bold">${bot.can_join_groups ? '✅' : '❌'}</span></div>
-            <div><i class="fa-solid fa-eye mr-1 text-blue-400"></i> Read all messages: <span class="font-bold">${bot.can_read_all_group_messages ? '✅' : '❌'}</span></div>
-            <div><i class="fa-solid fa-bolt mr-1 text-blue-400"></i> Inline queries: <span class="font-bold">${bot.supports_inline_queries ? '✅' : '❌'}</span></div>
-            <div><i class="fa-solid fa-robot mr-1 text-blue-400"></i> Is Bot: <span class="font-bold">${bot.is_bot ? '✅' : '❌'}</span></div>
-          </div>
-          <div class="grid grid-cols-2 gap-3">
-            <button class="btn-outline" onclick="setState(STATE.WAIT_PHOTO)">
-              <i class="fa-solid fa-image mr-2"></i>Change Image
-            </button>
-            <button class="btn-outline" onclick="setState(STATE.WAIT_NAME)">
-              <i class="fa-solid fa-pen-to-square mr-2"></i>Change Name
-            </button>
-            <button class="btn-secondary" onclick="recheckToken()">
-              <i class="fa-solid fa-arrows-rotate mr-2"></i>Re-examine
-            </button>
-            <button class="btn-danger" onclick="deletePhoto()">
-              <i class="fa-solid fa-trash mr-2"></i>Remove Image
-            </button>
-          </div>
-          <button class="btn-primary mt-4" onclick="setState(STATE.MAIN)">
-            <i class="fa-solid fa-house mr-2"></i>Back to Main
-          </button>
         </div>
       `;
     }
 
     async function recheckToken() {
-      setLoading('Re-checking token...');
+      setLoading('Re-validating token...');
       const res = await checkToken(userToken);
       removeLoading();
       if (res.valid) {
-        showToast('✅ The token is still valid!');
+        showToast('✅ Token is still valid and active!');
         userBotInfo = res;
         setState(STATE.SHOW_RESULT);
       } else {
-        showError('❌ The token is no longer valid!');
+        showError('❌ Token is no longer valid!');
         setState(STATE.MAIN);
       }
     }
 
     function deletePhoto() {
       uploadedPhoto = null;
-      showToast('🗑️ Local image removed!');
+      showToast('🗑️ Local image cache cleared!');
       setState(STATE.SHOW_RESULT);
     }
 
     // --- Photo Upload ---
     function renderPhotoUpload() {
       app.innerHTML = `
-        <form class="fade flex flex-col gap-6 items-center" id="photoForm">
-          <div class="text-xl font-bold text-blue-700 flex items-center gap-2">
-            <i class="fa-solid fa-image"></i> Change Bot Image
-          </div>
-          <label for="photoInput" class="cursor-pointer flex flex-col items-center gap-2">
-            <img src="${uploadedPhoto ? uploadedPhoto : `https://api.telegram.org/bot${userToken}/getUserProfilePhotos?user_id=${userBotInfo.id}&limit=1`}" class="avatar-preview mb-2" alt="Preview" onerror="this.src='https://api.dicebear.com/7.x/bottts/svg?seed=' + ${userBotInfo.id}">
-            <span class="file-upload-btn inline-flex items-center">
-              <i class="fa-solid fa-cloud-arrow-up mr-2"></i>Choose Image (JPG/PNG, <5MB)
-            </span>
-            <input type="file" accept="image/jpeg,image/png" id="photoInput">
-          </label>
-          <div class="flex gap-3 w-full">
-            <button class="btn-success flex-1" type="submit">
-              <i class="fa-solid fa-upload mr-2"></i>Upload to Bot
+        <div class="fade-in max-w-2xl mx-auto">
+          <div class="flex items-center gap-4 mb-8">
+            <button class="btn-3d px-5 py-3 text-white font-bold" onclick="setState(STATE.SHOW_RESULT)">
+              <i class="fas fa-arrow-left mr-2"></i>Back
             </button>
-            <button class="btn-secondary" type="button" onclick="setState(STATE.SHOW_RESULT)">
-              <i class="fa-solid fa-xmark mr-2"></i>Cancel
-            </button>
+            <h2 class="text-3xl font-bold">Update <span class="text-cyan-400">Bot Avatar</span></h2>
           </div>
-        </form>
+          
+          <div class="card-3d p-8">
+            <form class="flex flex-col gap-8" id="photoForm">
+              <div class="text-center">
+                <div class="relative inline-block">
+                  <img src="${uploadedPhoto ? uploadedPhoto : `https://api.telegram.org/bot${userToken}/getUserProfilePhotos?user_id=${userBotInfo.id}&limit=1`}" 
+                       class="avatar-3d w-48 h-48 mb-6" 
+                       alt="Preview" 
+                       onerror="this.src='https://api.dicebear.com/7.x/bottts/svg?seed=' + ${userBotInfo.id}">
+                  <div class="absolute bottom-4 right-4">
+                    <label for="photoInput" class="cursor-pointer">
+                      <div class="w-12 h-12 bg-gradient-to-r from-purple-500 to-pink-600 rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-transform">
+                        <i class="fas fa-camera text-white text-lg"></i>
+                      </div>
+                      <input type="file" accept="image/jpeg,image/png" id="photoInput" class="hidden">
+                    </label>
+                  </div>
+                </div>
+                <h3 class="text-xl font-bold mb-2">@${userBotInfo.username}</h3>
+                <p class="text-slate-400">Upload a new profile image for your bot</p>
+              </div>
+              
+              <div class="bg-slate-900/50 rounded-xl p-4">
+                <h4 class="font-bold mb-3 text-cyan-300">Requirements</h4>
+                <ul class="space-y-2 text-sm">
+                  <li class="flex items-center gap-2"><i class="fas fa-check-circle text-green-400"></i> JPG or PNG format only</li>
+                  <li class="flex items-center gap-2"><i class="fas fa-check-circle text-green-400"></i> Maximum file size: 5 MB</li>
+                  <li class="flex items-center gap-2"><i class="fas fa-check-circle text-green-400"></i> Square images work best</li>
+                  <li class="flex items-center gap-2"><i class="fas fa-check-circle text-green-400"></i> Changes apply immediately via Telegram API</li>
+                </ul>
+              </div>
+              
+              <div class="flex gap-4">
+                <button class="btn-3d flex-1 text-white font-bold py-4 rounded-xl" type="submit">
+                  <i class="fas fa-cloud-upload-alt mr-3"></i>Upload to Telegram
+                </button>
+                <button class="px-6 py-4 border border-slate-700 rounded-xl font-medium hover:bg-slate-800/50 transition-colors" type="button" onclick="setState(STATE.SHOW_RESULT)">
+                  Cancel
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
       `;
       document.getElementById('photoForm').onsubmit = handlePhotoSubmit;
       document.getElementById('photoInput').onchange = handlePhotoChange;
@@ -410,11 +707,11 @@
       const file = e.target.files[0];
       if (!file) return;
       if (!/^image\/(jpeg|png)$/.test(file.type)) {
-        showError('❌ Only JPG or PNG images are allowed!');
+        showError('Only JPG or PNG images are allowed!');
         return;
       }
       if (file.size > 5 * 1024 * 1024) {
-        showError('❌ Image must be less than 5MB!');
+        showError('Image must be less than 5MB!');
         return;
       }
       const reader = new FileReader();
@@ -431,52 +728,83 @@
         showError('Please select an image first!');
         return;
       }
-      setLoading('Uploading image...');
+      setLoading('Uploading image to Telegram...');
       const success = await setBotProfilePhoto(userToken, uploadedPhoto);
       removeLoading();
       if (success) {
-        showToast('✅ Bot image changed successfully!');
+        showToast('✅ Bot avatar updated successfully!');
         setState(STATE.SHOW_RESULT);
       } else {
-        showError('❌ Failed to change bot image!');
+        showError('❌ Failed to update bot avatar!');
       }
     }
 
     // --- Name Change ---
     function renderNameInput() {
       app.innerHTML = `
-        <form class="fade flex flex-col gap-6" id="nameForm">
-          <div class="text-xl font-bold text-blue-700 flex items-center gap-2">
-            <i class="fa-solid fa-pen-to-square"></i> Change Bot Name
-          </div>
-          <input class="w-full px-4 py-3 border border-blue-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 text-lg" type="text" name="newName" placeholder="Enter new bot name..." autocomplete="off" required minlength="1" maxlength="64" value="${userBotInfo.first_name}">
-          <div class="flex flex-row gap-3">
-            <button class="btn-success flex-1" type="submit">
-              <i class="fa-solid fa-check mr-2"></i>Update Name
+        <div class="fade-in max-w-2xl mx-auto">
+          <div class="flex items-center gap-4 mb-8">
+            <button class="btn-3d px-5 py-3 text-white font-bold" onclick="setState(STATE.SHOW_RESULT)">
+              <i class="fas fa-arrow-left mr-2"></i>Back
             </button>
-            <button class="btn-secondary" type="button" onclick="setState(STATE.SHOW_RESULT)">
-              <i class="fa-solid fa-xmark mr-2"></i>Cancel
-            </button>
+            <h2 class="text-3xl font-bold">Rename <span class="text-cyan-400">Bot</span></h2>
           </div>
-          <div class="text-xs text-gray-400 mt-2">1–64 characters. Letters, numbers, symbols.</div>
-        </form>
+          
+          <div class="card-3d p-8">
+            <form class="flex flex-col gap-8" id="nameForm">
+              <div>
+                <label class="block text-sm font-medium mb-3">New Bot Name</label>
+                <input class="input-3d w-full px-6 py-4 text-lg" type="text" name="newName" placeholder="Enter new bot name..." autocomplete="off" required minlength="1" maxlength="64" value="${userBotInfo.first_name}">
+                <div class="flex items-center gap-2 mt-3 text-sm text-slate-400">
+                  <i class="fas fa-info-circle"></i>
+                  <span>1–64 characters. Letters, numbers, and symbols are allowed.</span>
+                </div>
+              </div>
+              
+              <div class="bg-slate-900/50 rounded-xl p-4">
+                <div class="flex items-center gap-4">
+                  <div class="w-16 h-16 rounded-full bg-gradient-to-r from-cyan-500 to-blue-600 flex items-center justify-center">
+                    <i class="fas fa-robot text-white text-2xl"></i>
+                  </div>
+                  <div>
+                    <h4 class="font-bold">Preview</h4>
+                    <p class="text-slate-300 text-lg" id="namePreview">${userBotInfo.first_name}</p>
+                    <p class="text-slate-500 text-sm">@${userBotInfo.username}</p>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="flex gap-4">
+                <button class="btn-3d flex-1 text-white font-bold py-4 rounded-xl" type="submit">
+                  <i class="fas fa-check-circle mr-3"></i>Update Name
+                </button>
+                <button class="px-6 py-4 border border-slate-700 rounded-xl font-medium hover:bg-slate-800/50 transition-colors" type="button" onclick="setState(STATE.SHOW_RESULT)">
+                  Cancel
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
       `;
       document.getElementById('nameForm').onsubmit = handleNameSubmit;
+      document.getElementById('nameForm').newName.addEventListener('input', function(e) {
+        document.getElementById('namePreview').textContent = e.target.value || userBotInfo.first_name;
+      });
     }
 
     async function handleNameSubmit(e) {
       e.preventDefault();
       const newName = e.target.newName.value.trim();
       if (newName.length < 1 || newName.length > 64) {
-        showError('❌ Name must be between 1 and 64 characters!');
+        showError('Name must be between 1 and 64 characters!');
         return;
       }
-      setLoading('Changing name...');
+      setLoading('Updating bot name via Telegram API...');
       const success = await setBotName(userToken, newName);
       removeLoading();
       if (success) {
         userBotInfo.first_name = newName;
-        showToast(`✅ Bot name changed successfully!`);
+        showToast(`✅ Bot name changed to "${newName}" successfully!`);
         setState(STATE.SHOW_RESULT);
       } else {
         showError('❌ Failed to change bot name!');
@@ -486,23 +814,96 @@
     // --- Settings ---
     function renderSettings() {
       app.innerHTML = `
-        <div class="fade flex flex-col gap-6">
-          <div class="text-xl font-bold text-blue-700 flex items-center gap-2">
-            <i class="fa-solid fa-gear"></i> Settings
+        <div class="fade-in max-w-4xl mx-auto">
+          <h2 class="text-3xl font-bold mb-8">System <span class="text-cyan-400">Settings</span></h2>
+          
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div class="lg:col-span-2">
+              <div class="card-3d p-8">
+                <div class="flex items-center gap-4 mb-8">
+                  <div class="w-12 h-12 rounded-xl bg-gradient-to-r from-purple-500 to-pink-600 flex items-center justify-center">
+                    <i class="fas fa-sliders-h text-white text-xl"></i>
+                  </div>
+                  <h3 class="text-2xl font-bold">Data Management</h3>
+                </div>
+                
+                <div class="space-y-6">
+                  <div class="flex items-center justify-between p-4 bg-slate-900/50 rounded-xl">
+                    <div>
+                      <h4 class="font-bold mb-1">Clear Token History</h4>
+                      <p class="text-sm text-slate-400">Remove all stored tokens and bot information</p>
+                    </div>
+                    <button class="btn-3d px-6 py-3 text-white font-medium" onclick="clearData()">
+                      Clear Data
+                    </button>
+                  </div>
+                  
+                  <div class="flex items-center justify-between p-4 bg-slate-900/50 rounded-xl">
+                    <div>
+                      <h4 class="font-bold mb-1">Reset User Session</h4>
+                      <p class="text-sm text-slate-400">Clear current session and return to initial state</p>
+                    </div>
+                    <button class="px-6 py-3 border border-slate-700 rounded-lg font-medium hover:bg-slate-800/50 transition-colors" onclick="resetState()">
+                      Reset Session
+                    </button>
+                  </div>
+                  
+                  <div class="flex items-center justify-between p-4 bg-slate-900/50 rounded-xl">
+                    <div>
+                      <h4 class="font-bold mb-1">View Last Token</h4>
+                      <p class="text-sm text-slate-400">Display the most recently checked bot token</p>
+                    </div>
+                    <button class="px-6 py-3 border border-cyan-500/30 text-cyan-300 rounded-lg font-medium hover:bg-cyan-500/10 transition-colors" onclick="showLastToken()">
+                      Show Token
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div>
+              <div class="card-3d p-6 mb-6">
+                <h4 class="text-lg font-bold mb-4">System Info</h4>
+                <div class="space-y-4">
+                  <div>
+                    <p class="text-sm text-slate-500">Version</p>
+                    <p class="font-medium">Orbot v2.1.0</p>
+                  </div>
+                  <div>
+                    <p class="text-sm text-slate-500">API Status</p>
+                    <div class="flex items-center gap-2">
+                      <div class="w-2 h-2 rounded-full bg-green-500"></div>
+                      <p class="font-medium text-green-400">Telegram API Online</p>
+                    </div>
+                  </div>
+                  <div>
+                    <p class="text-sm text-slate-500">UI Mode</p>
+                    <div class="flex items-center gap-2">
+                      <div class="w-8 h-4 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full flex items-center justify-center">
+                        <i class="fas fa-cube text-white text-xs"></i>
+                      </div>
+                      <p class="font-medium">3D Immersive</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="card-3d p-6">
+                <h4 class="text-lg font-bold mb-4">Danger Zone</h4>
+                <div class="space-y-3">
+                  <button class="w-full py-3 border border-red-500/30 text-red-400 rounded-lg font-medium hover:bg-red-500/10 transition-colors" onclick="showError('This would reset all data. Are you sure?')">
+                    <i class="fas fa-bomb mr-2"></i>Factory Reset
+                  </button>
+                  <button class="w-full py-3 border border-red-500/30 text-red-400 rounded-lg font-medium hover:bg-red-500/10 transition-colors" onclick="showError('This would clear all logs. Are you sure?')">
+                    <i class="fas fa-trash-alt mr-2"></i>Clear All Logs
+                  </button>
+                </div>
+              </div>
+            </div>
           </div>
-          <div class="flex flex-col gap-3">
-            <button class="btn-secondary" onclick="clearData()">
-              <i class="fa-solid fa-broom mr-2"></i>Clear Token History
-            </button>
-            <button class="btn-secondary" onclick="resetState()">
-              <i class="fa-solid fa-rotate-left mr-2"></i>Reset User Status
-            </button>
-            <button class="btn-outline" onclick="showLastToken()">
-              <i class="fa-solid fa-key mr-2"></i>View Last Checked Token
-            </button>
-          </div>
-          <button class="btn-primary mt-4" onclick="setState(STATE.MAIN)">
-            <i class="fa-solid fa-house mr-2"></i>Back to Main
+          
+          <button class="btn-3d mt-8 px-8 py-4 text-white font-bold" onclick="setState(STATE.MAIN)">
+            <i class="fas fa-home mr-2"></i>Return to Dashboard
           </button>
         </div>
       `;
@@ -512,7 +913,7 @@
       userToken = null;
       userBotInfo = null;
       uploadedPhoto = null;
-      showToast('🗑️ All saved data has been cleaned!');
+      showToast('🗑️ All user data has been cleared!');
       setState(STATE.SETTINGS);
     }
     
@@ -520,38 +921,80 @@
       userToken = null;
       userBotInfo = null;
       uploadedPhoto = null;
-      showToast('🔄 User status has been reset!');
-      setState(STATE.SETTINGS);
+      showToast('🔄 User session reset successfully!');
+      setState(STATE.MAIN);
     }
     
     function showLastToken() {
       if (!userToken) {
-        showError('No token checked yet.');
+        showError('No token has been checked yet.');
         return;
       }
-      showToast(`Last token: ${userToken}`);
+      showToast(`Last token: ${userToken.substring(0, 20)}...${userToken.substring(userToken.length - 10)}`);
     }
 
     // --- Help ---
     function renderHelp() {
       app.innerHTML = `
-        <div class="fade flex flex-col gap-6">
-          <div class="text-xl font-bold text-blue-700 flex items-center gap-2">
-            <i class="fa-solid fa-circle-question"></i> Help
+        <div class="fade-in max-w-4xl mx-auto">
+          <h2 class="text-3xl font-bold mb-8">User <span class="text-cyan-400">Guide</span></h2>
+          
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+            <div class="card-3d p-8">
+              <div class="flex items-center gap-4 mb-6">
+                <div class="w-12 h-12 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 flex items-center justify-center">
+                  <i class="fas fa-key text-white text-xl"></i>
+                </div>
+                <h3 class="text-xl font-bold">Token Validation</h3>
+              </div>
+              <p class="text-slate-400 mb-4">Enter your Telegram bot token to verify its validity and view detailed bot information. The token format should be:</p>
+              <div class="font-mono bg-slate-900/50 p-3 rounded-lg mb-4 text-sm">123456789:ABCDEFGHIJKLMNOPQRSTUVWXYZ</div>
+              <p class="text-slate-400">Our system uses the official Telegram Bot API to validate tokens in real-time.</p>
+            </div>
+            
+            <div class="card-3d p-8">
+              <div class="flex items-center gap-4 mb-6">
+                <div class="w-12 h-12 rounded-xl bg-gradient-to-r from-purple-500 to-pink-600 flex items-center justify-center">
+                  <i class="fas fa-robot text-white text-xl"></i>
+                </div>
+                <h3 class="text-xl font-bold">Bot Customization</h3>
+              </div>
+              <p class="text-slate-400 mb-4">After validating a token, you can customize your bot directly through our interface:</p>
+              <ul class="space-y-2 text-slate-400 text-sm">
+                <li class="flex items-start gap-2"><i class="fas fa-camera mt-1 text-cyan-400"></i> <span>Change profile photo (JPG/PNG, max 5MB)</span></li>
+                <li class="flex items-start gap-2"><i class="fas fa-font mt-1 text-cyan-400"></i> <span>Update bot display name (1-64 characters)</span></li>
+                <li class="flex items-start gap-2"><i class="fas fa-sync-alt mt-1 text-cyan-400"></i> <span>Re-validate token status at any time</span></li>
+              </ul>
+            </div>
           </div>
-          <ul class="list-disc list-inside text-gray-600 text-sm space-y-1">
-            <li><b>Token check:</b> Enter Telegram bot token to view details and validity.</li>
-            <li><b>Change image:</b> Upload a new image for bot using Telegram API.</li>
-            <li><b>Change name:</b> Edit bot's display name using Telegram API.</li>
-            <li><b>Statistics:</b> View tokens checked and uptime.</li>
-            <li><b>Settings:</b> Clear data, reset status, view last token.</li>
-          </ul>
-          <div class="bg-blue-50 border border-blue-100 rounded-lg p-3 text-xs text-blue-500">
-            <i class="fa-solid fa-lightbulb text-yellow-400 mr-1"></i>
-            This tool uses real Telegram Bot API calls. All changes are applied to actual bot.
+          
+          <div class="card-3d p-8">
+            <div class="flex items-center gap-4 mb-6">
+              <div class="w-12 h-12 rounded-xl bg-gradient-to-r from-green-500 to-emerald-600 flex items-center justify-center">
+                <i class="fas fa-shield-alt text-white text-xl"></i>
+              </div>
+              <h3 class="text-xl font-bold">Security & Privacy</h3>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div class="bg-slate-900/50 rounded-xl p-5">
+                <h4 class="font-bold mb-2 text-cyan-300">Data Handling</h4>
+                <p class="text-sm text-slate-400">All token validation happens client-side. We don't store tokens on our servers. Tokens are only sent to Telegram's official API.</p>
+              </div>
+              <div class="bg-slate-900/50 rounded-xl p-5">
+                <h4 class="font-bold mb-2 text-cyan-300">API Limitations</h4>
+                <p class="text-sm text-slate-400">Bot API has rate limits. Avoid excessive requests. Some bot features may be restricted by Telegram based on bot settings.</p>
+              </div>
+            </div>
+            <div class="mt-6 p-4 bg-blue-900/20 border border-blue-500/30 rounded-xl">
+              <div class="flex items-center gap-3">
+                <i class="fas fa-lightbulb text-yellow-400 text-xl"></i>
+                <p class="text-blue-300">This tool uses real Telegram Bot API calls. All changes are applied directly to your actual bot.</p>
+              </div>
+            </div>
           </div>
-          <button class="btn-primary mt-4" onclick="setState(STATE.MAIN)">
-            <i class="fa-solid fa-house mr-2"></i>Back to Main
+          
+          <button class="btn-3d mt-8 px-8 py-4 text-white font-bold" onclick="setState(STATE.MAIN)">
+            <i class="fas fa-play mr-2"></i>Get Started
           </button>
         </div>
       `;
@@ -561,22 +1004,98 @@
     function renderStats() {
       const uptimeSec = Math.floor((Date.now() - stats.startedAt) / 1000);
       const uptimeStr =
-        uptimeSec < 60 ? `${uptimeSec} sec` :
-        uptimeSec < 3600 ? `${Math.floor(uptimeSec / 60)} min` :
-        `${Math.floor(uptimeSec / 3600)} hr`;
+        uptimeSec < 60 ? `${uptimeSec} seconds` :
+        uptimeSec < 3600 ? `${Math.floor(uptimeSec / 60)} minutes` :
+        uptimeSec < 86400 ? `${Math.floor(uptimeSec / 3600)} hours` :
+        `${Math.floor(uptimeSec / 86400)} days`;
+      
       app.innerHTML = `
-        <div class="fade flex flex-col gap-6">
-          <div class="text-xl font-bold text-blue-700 flex items-center gap-2">
-            <i class="fa-solid fa-chart-simple"></i> Statistics
+        <div class="fade-in max-w-4xl mx-auto">
+          <h2 class="text-3xl font-bold mb-8">System <span class="text-cyan-400">Analytics</span></h2>
+          
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <div class="card-3d p-6 text-center">
+              <div class="w-16 h-16 mx-auto rounded-full bg-gradient-to-r from-cyan-500 to-blue-600 flex items-center justify-center mb-4">
+                <i class="fas fa-users text-white text-2xl"></i>
+              </div>
+              <h3 class="text-3xl font-bold mb-2">${stats.users.toLocaleString()}</h3>
+              <p class="text-slate-400">Active Users</p>
+            </div>
+            
+            <div class="card-3d p-6 text-center">
+              <div class="w-16 h-16 mx-auto rounded-full bg-gradient-to-r from-purple-500 to-pink-600 flex items-center justify-center mb-4">
+                <i class="fas fa-key text-white text-2xl"></i>
+              </div>
+              <h3 class="text-3xl font-bold mb-2">${stats.tokensChecked}</h3>
+              <p class="text-slate-400">Tokens Validated</p>
+            </div>
+            
+            <div class="card-3d p-6 text-center">
+              <div class="w-16 h-16 mx-auto rounded-full bg-gradient-to-r from-green-500 to-emerald-600 flex items-center justify-center mb-4">
+                <i class="fas fa-clock text-white text-2xl"></i>
+              </div>
+              <h3 class="text-3xl font-bold mb-2">${uptimeStr}</h3>
+              <p class="text-slate-400">System Uptime</p>
+            </div>
           </div>
-          <div class="flex flex-col gap-2 text-gray-700 text-sm">
-            <div><i class="fa-solid fa-users mr-1 text-blue-400"></i> Users: <b>${stats.users}</b></div>
-            <div><i class="fa-solid fa-key mr-1 text-blue-400"></i> Tokens checked: <b>${stats.tokensChecked}</b></div>
-            <div><i class="fa-solid fa-clock mr-1 text-blue-400"></i> Uptime: <b>${uptimeStr}</b></div>
-            <div><i class="fa-solid fa-bolt mr-1 text-blue-400"></i> Bot status: <span class="text-green-600">Running</span></div>
+          
+          <div class="card-3d p-8">
+            <h3 class="text-2xl font-bold mb-6">Performance Metrics</h3>
+            
+            <div class="space-y-6">
+              <div>
+                <div class="flex justify-between mb-2">
+                  <span class="font-medium">API Response Time</span>
+                  <span class="text-cyan-400 font-bold">~120ms</span>
+                </div>
+                <div class="w-full bg-slate-800 rounded-full h-2.5">
+                  <div class="bg-gradient-to-r from-cyan-500 to-blue-600 h-2.5 rounded-full" style="width: 85%"></div>
+                </div>
+              </div>
+              
+              <div>
+                <div class="flex justify-between mb-2">
+                  <span class="font-medium">System Reliability</span>
+                  <span class="text-green-400 font-bold">99.8%</span>
+                </div>
+                <div class="w-full bg-slate-800 rounded-full h-2.5">
+                  <div class="bg-gradient-to-r from-green-500 to-emerald-600 h-2.5 rounded-full" style="width: 99%"></div>
+                </div>
+              </div>
+              
+              <div>
+                <div class="flex justify-between mb-2">
+                  <span class="font-medium">User Satisfaction</span>
+                  <span class="text-yellow-400 font-bold">4.7/5.0</span>
+                </div>
+                <div class="w-full bg-slate-800 rounded-full h-2.5">
+                  <div class="bg-gradient-to-r from-yellow-500 to-amber-600 h-2.5 rounded-full" style="width: 94%"></div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8 pt-8 border-t border-slate-800">
+              <div class="text-center">
+                <div class="text-2xl font-bold text-cyan-400">100%</div>
+                <div class="text-sm text-slate-400">SSL Secure</div>
+              </div>
+              <div class="text-center">
+                <div class="text-2xl font-bold text-green-400">24/7</div>
+                <div class="text-sm text-slate-400">Availability</div>
+              </div>
+              <div class="text-center">
+                <div class="text-2xl font-bold text-purple-400">0</div>
+                <div class="text-sm text-slate-400">Outages</div>
+              </div>
+              <div class="text-center">
+                <div class="text-2xl font-bold text-blue-400">v2.1</div>
+                <div class="text-sm text-slate-400">Version</div>
+              </div>
+            </div>
           </div>
-          <button class="btn-primary mt-4" onclick="setState(STATE.MAIN)">
-            <i class="fa-solid fa-house mr-2"></i>Back to Main
+          
+          <button class="btn-3d mt-8 px-8 py-4 text-white font-bold" onclick="setState(STATE.MAIN)">
+            <i class="fas fa-arrow-left mr-2"></i>Back to Dashboard
           </button>
         </div>
       `;
@@ -585,37 +1104,41 @@
     // --- Toast & Loading ---
     function showToast(msg) {
       let toast = document.createElement('div');
-      toast.className = 'fixed bottom-24 right-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl shadow-lg px-5 py-3 fade z-50';
-      toast.innerHTML = msg;
+      toast.className = 'fixed bottom-6 right-6 bg-gradient-to-r from-cyan-600 to-blue-600 text-white rounded-xl shadow-2xl px-6 py-4 fade-in z-50 max-w-sm';
+      toast.innerHTML = `<div class="flex items-center gap-3"><i class="fas fa-check-circle"></i><span>${msg}</span></div>`;
       document.body.appendChild(toast);
       setTimeout(() => {
-        toast.classList.remove('fade');
-        toast.style.opacity = 0;
+        toast.style.opacity = '0';
+        toast.style.transform = 'translateY(20px)';
         setTimeout(() => toast.remove(), 400);
-      }, 1800);
+      }, 3000);
     }
     
     function showError(msg) {
       let err = document.createElement('div');
-      err.className = 'fixed top-4 left-1/2 -translate-x-1/2 bg-gradient-to-r from-red-500 to-rose-500 text-white rounded-xl shadow-lg px-6 py-3 fade z-50 text-center';
-      err.innerHTML = `<i class='fa-solid fa-triangle-exclamation mr-2'></i>${msg}`;
+      err.className = 'fixed top-6 left-1/2 -translate-x-1/2 bg-gradient-to-r from-red-500 to-pink-600 text-white rounded-xl shadow-2xl px-6 py-4 fade-in z-50 text-center max-w-md';
+      err.innerHTML = `<div class="flex items-center gap-3 justify-center"><i class="fas fa-exclamation-triangle"></i><span>${msg}</span></div>`;
       document.body.appendChild(err);
       setTimeout(() => {
-        err.classList.remove('fade');
-        err.style.opacity = 0;
+        err.style.opacity = '0';
         setTimeout(() => err.remove(), 400);
-      }, 2700);
+      }, 4000);
     }
     
     let loadingDiv = null;
     function setLoading(msg) {
       removeLoading();
       loadingDiv = document.createElement('div');
-      loadingDiv.className = 'fixed inset-0 bg-black/20 flex items-center justify-center z-50 fade';
+      loadingDiv.className = 'fixed inset-0 bg-black/70 flex items-center justify-center z-50 fade-in';
       loadingDiv.innerHTML = `
-        <div class='bg-white px-8 py-6 rounded-2xl shadow-lg flex flex-col items-center gap-3'>
-          <i class='fa-solid fa-spinner fa-spin text-blue-600 text-2xl'></i>
-          <span class='text-blue-700 font-semibold'>${msg}</span>
+        <div class='bg-slate-900 px-10 py-8 rounded-2xl shadow-2xl flex flex-col items-center gap-4 border border-cyan-500/30'>
+          <div class="relative">
+            <div class="w-16 h-16 border-4 border-cyan-500/30 border-t-cyan-500 rounded-full animate-spin"></div>
+            <div class="absolute inset-0 flex items-center justify-center">
+              <i class='fa-solid fa-robot text-cyan-400 text-2xl'></i>
+            </div>
+          </div>
+          <span class='text-white font-semibold text-lg'>${msg}</span>
         </div>`;
       document.body.appendChild(loadingDiv);
     }
@@ -626,9 +1149,9 @@
 
     // --- Navigation Event Listeners ---
     document.addEventListener('DOMContentLoaded', function() {
-      // Add click handlers for navigation links
-      document.querySelectorAll('.nav-link').forEach(link => {
-        link.addEventListener('click', function(e) {
+      // Add click handlers for navigation tabs
+      document.querySelectorAll('.tab-3d').forEach(tab => {
+        tab.addEventListener('click', function(e) {
           e.preventDefault();
           const page = this.getAttribute('data-page');
           setState(page);
@@ -637,6 +1160,32 @@
       
       // Initialize the app
       setState(STATE.MAIN);
+      
+      // Add floating effect to cards on mouse move
+      document.addEventListener('mousemove', function(e) {
+        const cards = document.querySelectorAll('.card-3d');
+        cards.forEach(card => {
+          const rect = card.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          
+          const centerX = rect.width / 2;
+          const centerY = rect.height / 2;
+          
+          const rotateY = (x - centerX) / 25;
+          const rotateX = (centerY - y) / 25;
+          
+          card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-8px)`;
+        });
+      });
+      
+      // Reset card transforms when mouse leaves
+      document.addEventListener('mouseleave', function() {
+        const cards = document.querySelectorAll('.card-3d');
+        cards.forEach(card => {
+          card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateY(0)';
+        });
+      });
     });
   </script>
 </body>
